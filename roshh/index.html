@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roshh - Premium Rock & Dragon themed portfolio website featuring interactive fretboard audio, heavy metal design accents, and digital code works.">
+    <title>Roshh | Metal Coder & Digital Shredder Portfolio</title>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- --- NAVIGATION HEADER --- -->
+    <header>
+        <div class="container nav-container">
+            <a href="#hero" class="logo">
+                <i class="fa-solid fa-guitar"></i>
+                ROSHH<span>.LAIR</span>
+            </a>
+            <div class="nav-toggle" id="nav-toggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#hero">Lair</a></li>
+                    <li><a href="#fretboard-section">Fretboard</a></li>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#about">Legend</a></li>
+                    <li><a href="#contact">Amplifier</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- --- HERO SECTION --- -->
+    <section class="hero" id="hero">
+        <div class="hero-glow-bg"></div>
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-subtitle">Digital Shredder &amp; Developer</div>
+                <h1 class="hero-title">UNLEASH THE <span>FIRE</span> OF CODE &amp; METAL</h1>
+                <p class="hero-description">
+                    Welcome to the Lair of Roshh. I merge high-performance software engineering with heavy distortion riffs. Strum the fretboard below to wake the dragon and experience high-fidelity digital art.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#fretboard-section" class="btn btn-primary">
+                        <i class="fa-solid fa-play"></i> Strum Fretboard
+                    </a>
+                    <a href="#works" class="btn btn-secondary">
+                        <i class="fa-solid fa-bolt"></i> View Works
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="dragon-guitar-wrap">
+                    <div class="visual-fire-ring"></div>
+                    <img src="dragon_guitar_art.png" alt="Fiery Dragon wrapping around a metal electric guitar" class="hero-main-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- PLAYABLE FRETBOARD SECTION --- -->
+    <section class="guitar-section" id="fretboard-section">
+        <div class="container">
+            <h2>The Playable Fretboard</h2>
+            <p class="guitar-instructions">
+                <i class="fa-solid fa-volume-high"></i> Click/tap or drag your mouse across strings to play. Turn up your volume for heavy metal synthesis.
+            </p>
+            
+            <div class="guitar-neck-container">
+                <!-- 6 strings neck -->
+                <div class="fretboard" id="guitar-fretboard">
+                    
+                    <!-- Fret Marker Inlays (Ivory dots on frets 3, 5, 7, 9, 12) -->
+                    <div class="fret-markers">
+                        <div class="fret-marker-cell"></div> <!-- nut -->
+                        <div class="fret-marker-cell"></div> <!-- fret 1 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 2 -->
+                        <div class="fret-marker-cell"><div class="inlay-dot"></div></div> <!-- fret 3 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 4 -->
+                        <div class="fret-marker-cell"><div class="inlay-dot"></div></div> <!-- fret 5 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 6 -->
+                        <div class="fret-marker-cell"><div class="inlay-dot"></div></div> <!-- fret 7 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 8 -->
+                        <div class="fret-marker-cell"><div class="inlay-dot"></div></div> <!-- fret 9 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 10 -->
+                        <div class="fret-marker-cell"></div> <!-- fret 11 -->
+                        <div class="fret-marker-cell">
+                            <div class="double-dots">
+                                <div class="inlay-dot"></div>
+                                <div class="inlay-dot"></div>
+                            </div>
+                        </div> <!-- fret 12 -->
+                    </div>
+
+                    <!-- String 1: High E -->
+                    <div class="string string-1" data-string="0">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">E4</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">F4</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">F#4</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">G4</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">G#4</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">A4</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">A#4</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">B4</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">C5</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">C#5</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">D5</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">D#5</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">E5</div></div>
+                    </div>
+
+                    <!-- String 2: B -->
+                    <div class="string string-2" data-string="1">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">B3</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">C4</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">C#4</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">D4</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">D#4</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">E4</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">F4</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">F#4</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">G4</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">G#4</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">A4</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">A#4</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">B4</div></div>
+                    </div>
+
+                    <!-- String 3: G -->
+                    <div class="string string-3" data-string="2">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">G3</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">G#3</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">A3</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">A#3</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">B3</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">C4</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">C#4</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">D4</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">D#4</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">E4</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">F4</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">F#4</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">G4</div></div>
+                    </div>
+
+                    <!-- String 4: D -->
+                    <div class="string string-4" data-string="3">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">D3</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">D#3</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">E3</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">F3</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">F#3</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">G3</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">G#3</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">A3</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">A#3</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">B3</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">C4</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">C#4</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">D4</div></div>
+                    </div>
+
+                    <!-- String 5: A -->
+                    <div class="string string-5" data-string="4">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">A2</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">A#2</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">B2</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">C3</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">C#3</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">D3</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">D#3</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">E3</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">F3</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">F#3</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">G3</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">G#3</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">A3</div></div>
+                    </div>
+
+                    <!-- String 6: Low E -->
+                    <div class="string string-6" data-string="5">
+                        <div class="string-wire"></div>
+                        <div class="fret" data-fret="0"><div class="note-fret">E2</div></div>
+                        <div class="fret" data-fret="1"><div class="note-fret">F2</div></div>
+                        <div class="fret" data-fret="2"><div class="note-fret">F#2</div></div>
+                        <div class="fret" data-fret="3"><div class="note-fret">G2</div></div>
+                        <div class="fret" data-fret="4"><div class="note-fret">G#2</div></div>
+                        <div class="fret" data-fret="5"><div class="note-fret">A2</div></div>
+                        <div class="fret" data-fret="6"><div class="note-fret">A#2</div></div>
+                        <div class="fret" data-fret="7"><div class="note-fret">B2</div></div>
+                        <div class="fret" data-fret="8"><div class="note-fret">C3</div></div>
+                        <div class="fret" data-fret="9"><div class="note-fret">C#3</div></div>
+                        <div class="fret" data-fret="10"><div class="note-fret">D3</div></div>
+                        <div class="fret" data-fret="11"><div class="note-fret">D#3</div></div>
+                        <div class="fret" data-fret="12"><div class="note-fret">E3</div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- PORTFOLIO / WORKS SECTION --- -->
+    <section class="portfolio" id="works">
+        <div class="container">
+            <h2>Crafted Artifacts</h2>
+            
+            <!-- Pedal Board Filter Triggers -->
+            <div class="pedalboard">
+                <!-- ALL Pedal -->
+                <div class="pedal-btn pedal-all active" data-filter="all">
+                    <div class="pedal-label">All<br>Effects</div>
+                    <div class="pedal-knobs">
+                        <div class="pedal-knob"></div>
+                        <div class="pedal-knob"></div>
+                    </div>
+                    <div class="pedal-led"></div>
+                    <div class="pedal-switch"></div>
+                </div>
+
+                <!-- Web Dev Pedal -->
+                <div class="pedal-btn pedal-web" data-filter="web">
+                    <div class="pedal-label">Web<br>Dev</div>
+                    <div class="pedal-knobs">
+                        <div class="pedal-knob"></div>
+                        <div class="pedal-knob"></div>
+                    </div>
+                    <div class="pedal-led"></div>
+                    <div class="pedal-switch"></div>
+                </div>
+
+                <!-- Music / Sound Design Pedal -->
+                <div class="pedal-btn pedal-music" data-filter="music">
+                    <div class="pedal-label">Sound<br>DSP</div>
+                    <div class="pedal-knobs">
+                        <div class="pedal-knob"></div>
+                        <div class="pedal-knob"></div>
+                    </div>
+                    <div class="pedal-led"></div>
+                    <div class="pedal-switch"></div>
+                </div>
+
+                <!-- UX UI Pedal -->
+                <div class="pedal-btn pedal-design" data-filter="design">
+                    <div class="pedal-label">UI<br>UX</div>
+                    <div class="pedal-knobs">
+                        <div class="pedal-knob"></div>
+                        <div class="pedal-knob"></div>
+                    </div>
+                    <div class="pedal-led"></div>
+                    <div class="pedal-switch"></div>
+                </div>
+            </div>
+
+            <!-- Works Grid -->
+            <div class="portfolio-grid">
+                <!-- Card 1 -->
+                <div class="portfolio-card" data-category="web" data-id="dragon-synth">
+                    <div class="portfolio-img-wrap">
+                        <img src="dragon_guitar_art.png" alt="Dragon Synth Interface" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <button class="overlay-btn">Inspect Pedal</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <div>
+                            <div class="portfolio-category">Web Development</div>
+                            <h3>Dragon Synth Engine</h3>
+                            <p>Interactive synthesis platform with volcanic audio visualizers.</p>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag">Web Audio</span>
+                            <span class="tag">Canvas</span>
+                            <span class="tag">DSP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="portfolio-card" data-category="music" data-id="fretboard-trainer">
+                    <div class="portfolio-img-wrap">
+                        <img src="guitar_amp_visual.png" alt="Fretboard Trainer Tool" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <button class="overlay-btn">Inspect Pedal</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <div>
+                            <div class="portfolio-category">Music &amp; Gaming</div>
+                            <h3>Fretboard Trainer</h3>
+                            <p>Gamified tuner and scale learning board with pitch analyzer.</p>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag">HTML5 Game</span>
+                            <span class="tag">Audio DSP</span>
+                            <span class="tag">Math</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="portfolio-card" data-category="music" data-id="roshh-music">
+                    <div class="portfolio-img-wrap">
+                        <img src="about_guitar_visual.png" alt="Roshh EP Release" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <button class="overlay-btn">Inspect Pedal</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <div>
+                            <div class="portfolio-category">Sound Production</div>
+                            <h3>Roshh EP Single</h3>
+                            <p>Original music release layered with sub-octave coding loops.</p>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag">Arranging</span>
+                            <span class="tag">Mixing</span>
+                            <span class="tag">Guitar Solo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="portfolio-card" data-category="design" data-id="dragon-visuals">
+                    <div class="portfolio-img-wrap">
+                        <img src="dragon_guitar_art.png" alt="Dragon UI Pack" class="portfolio-img">
+                        <div class="portfolio-overlay">
+                            <button class="overlay-btn">Inspect Pedal</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <div>
+                            <div class="portfolio-category">UI/UX Design</div>
+                            <h3>The Dragon Lair UI Kit</h3>
+                            <p>Obsidian panels, magma borders, and mythic gothic styling elements.</p>
+                        </div>
+                        <div class="portfolio-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Dark Mode</span>
+                            <span class="tag">Aesthetics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- --- ABOUT STORY / LEGEND SECTION --- -->
+    <section class="about" id="about">
+        <div class="container about-grid">
+            <div class="about-visual">
+                <div class="guitar-stand">
+                    <img src="about_guitar_visual.png" alt="Guitars aligned in workshop" class="guitar-stand-img">
+                </div>
+                <div class="about-badge">
+                    EST. 2026
+                </div>
+            </div>
+            <div class="about-text">
+                <h2>The Legend of Roshh</h2>
+                <p class="about-lead">Coding with surgical precision. Shredding with absolute chaos.</p>
+                <p class="about-bio">
+                    Born from high-voltage rock circuits and dragon scales, Roshh is a digital designer who builds interactive, audio-rich web systems. I believe code shouldn't just be viewed—it should be heard and felt. Like double-tapping a fretboard at 180bpm, digital experiences must be fast, aggressive, and visually breathtaking.
+                </p>
+                <div class="skills-list">
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> Web Audio &amp; Audio Context</div>
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> Advanced Javascript &amp; ES6</div>
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> Volcanic UI/UX Dark Schemes</div>
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> Heavy Riff Composition</div>
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> Webpack, Vite &amp; Bundlers</div>
+                    <div class="skill-item"><i class="fa-solid fa-fire"></i> CSS Grid &amp; Glassmorphism</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CONTACT AMPLIFIER SECTION --- -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Plug Into My Amp</h2>
+            
+            <div class="amp-container">
+                <!-- Amp Control Board -->
+                <div class="amp-panel">
+                    <div class="amp-brand">ROSHH <span>G-50</span></div>
+                    
+                    <div class="amp-dials">
+                        <div class="amp-dial-group">
+                            <div class="amp-knob" id="knob-vol"></div>
+                            <span>VOL</span>
+                        </div>
+                        <div class="amp-dial-group">
+                            <div class="amp-knob" id="knob-gain"></div>
+                            <span>GAIN</span>
+                        </div>
+                        <div class="amp-dial-group">
+                            <div class="amp-knob" id="knob-bass"></div>
+                            <span>BASS</span>
+                        </div>
+                        <div class="amp-dial-group">
+                            <div class="amp-knob" id="knob-mid"></div>
+                            <span>MID</span>
+                        </div>
+                        <div class="amp-dial-group">
+                            <div class="amp-knob" id="knob-treb"></div>
+                            <span>TREB</span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div class="amp-input-jack"></div>
+                        <div class="amp-power-led"></div>
+                    </div>
+                </div>
+
+                <!-- Amp Grill Speaker Cover & Form -->
+                <div class="amp-grill">
+                    <form class="contact-form" id="guitar-amp-form">
+                        <div class="form-row-grid">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Riff Master" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Jack</label>
+                                <input type="email" id="email" class="form-control" placeholder="shredder@rock.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject Tuning</label>
+                            <input type="text" id="subject" class="form-control" placeholder="Gig Booking / Project Collab" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message Signal</label>
+                            <textarea id="message" class="form-control" placeholder="Pitch your project idea..." required></textarea>
+                        </div>
+                        <div class="amp-submit-wrap">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa-solid fa-guitar"></i> <span>Fire The Solo</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- --- FOOTER --- -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-dragon" style="color: var(--primary);"></i> ROSHH<span>.LAIR</span>
+            </div>
+            <div class="footer-socials">
+                <a href="#" class="social-circle"><i class="fa-brands fa-github"></i></a>
+                <a href="#" class="social-circle"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="social-circle"><i class="fa-brands fa-soundcloud"></i></a>
+                <a href="#" class="social-circle"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2026 ROSHH. All Rights Reserved. Built with Metal, Fire, and Web Audio.
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- DETAILS OVERLAY MODAL --- -->
+    <div class="modal" id="project-modal">
+        <div class="modal-bg"></div>
+        <div class="modal-content-wrap glass-panel">
+            <div class="modal-header">
+                <img src="" alt="Project header image" id="modal-img" class="modal-header-img">
+                <button class="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-category" class="modal-category">Web Development</div>
+                <h3 id="modal-title" class="modal-title">Project Name</h3>
+                <p id="modal-desc" class="modal-desc">
+                    Detailed project summary here.
+                </p>
+                <div class="modal-meta-grid">
+                    <div class="meta-item">
+                        <h5>Client / Agency</h5>
+                        <p id="modal-client">Indie Studio</p>
+                    </div>
+                    <div class="meta-item">
+                        <h5>Date Completed</h5>
+                        <p id="modal-date">December 2025</p>
+                    </div>
+                    <div class="meta-item" style="grid-column: span 2;">
+                        <h5>Tech Strummed</h5>
+                        <p id="modal-tech">Web Audio, Canvas, CSS</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" id="modal-link" target="_blank" class="btn btn-primary">
+                        <i class="fa-solid fa-up-right-from-square"></i> Visit Lair Link
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="sound.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
