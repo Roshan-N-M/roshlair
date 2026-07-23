@@ -1,0 +1,11 @@
+# Netlify configuration file for Roshh website
+
+[build]
+  # Specify the directory containing index.html and static assets
+  publish = "roshh"
+
+# Handle fallback redirects for clean routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
