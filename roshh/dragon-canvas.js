@@ -1,16 +1,17 @@
 /**
- * Chinese Dragon WebGL/Canvas Animation Engine
- * Creates a majestic glowing crimson & molten gold energy dragon
- * gracefully looping around the hero section with particle fire trails.
+ * Realistic Chinese Golden Dragon WebGL/Canvas Animation Engine
+ * Renders an authentic, highly-detailed Chinese Dragon with golden scales,
+ * fiery crimson mane, sharp claws, glowing red eyes, and mystical fire orb
+ * seamlessly looping around the hero section.
  */
 
-class ChineseDragonEngine {
+class RealisticChineseDragonEngine {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
         this.ctx = this.canvas.getContext('2d');
 
-        this.segmentsCount = 50;
+        this.segmentsCount = 65;
         this.segments = [];
         this.particles = [];
         this.embers = [];
@@ -20,6 +21,27 @@ class ChineseDragonEngine {
         this.breathTimer = 0;
         this.isBreathing = false;
         this.breathDuration = 0;
+
+        // Load realistic sprite textures
+        this.texturesLoaded = false;
+        this.headImage = new Image();
+        this.headImage.src = 'dragon_head.png';
+
+        this.bodyImage = new Image();
+        this.bodyImage.src = 'dragon_body.png';
+
+        let loadedCount = 0;
+        const checkLoaded = () => {
+            loadedCount++;
+            if (loadedCount >= 2) {
+                this.texturesLoaded = true;
+            }
+        };
+
+        this.headImage.onload = checkLoaded;
+        this.bodyImage.onload = checkLoaded;
+        this.headImage.onerror = () => { this.texturesLoaded = false; };
+        this.bodyImage.onerror = () => { this.texturesLoaded = false; };
 
         // Accessibility preference
         const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -40,14 +62,14 @@ class ChineseDragonEngine {
         const startY = this.height / 2;
 
         for (let i = 0; i < this.segmentsCount; i++) {
-            // Taper body radius from head to tail
-            let radius = 22;
-            if (i === 0) radius = 26; // Head
-            else if (i < 10) radius = 24 - i * 0.5;
-            else if (i > 35) radius = Math.max(4, 19 - (i - 35) * 1.0);
+            // Realistic body tapering
+            let radius = 24;
+            if (i === 0) radius = 30; // Head
+            else if (i < 12) radius = 26 - i * 0.4;
+            else if (i > 45) radius = Math.max(5, 21 - (i - 45) * 0.9);
 
             this.segments.push({
-                x: startX - i * 14,
+                x: startX - i * 13,
                 y: startY,
                 z: 1,
                 angle: 0,
@@ -57,7 +79,7 @@ class ChineseDragonEngine {
         }
 
         // Initialize ambient floating embers
-        const emberCount = this.reducedMotion ? 15 : 45;
+        const emberCount = this.reducedMotion ? 15 : 50;
         for (let i = 0; i < emberCount; i++) {
             this.embers.push(this.createAmbientEmber(true));
         }
@@ -70,7 +92,7 @@ class ChineseDragonEngine {
     resize() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const rect = this.canvas.getBoundingClientRect();
-        
+
         this.width = rect.width || window.innerWidth;
         this.height = rect.height || window.innerHeight;
 
@@ -83,94 +105,88 @@ class ChineseDragonEngine {
         return {
             x: Math.random() * this.width,
             y: randomY ? Math.random() * this.height : this.height + 20,
-            size: Math.random() * 3.5 + 1,
-            speedX: (Math.random() - 0.5) * 0.6,
-            speedY: -(Math.random() * 0.8 + 0.4),
-            alpha: Math.random() * 0.7 + 0.3,
+            size: Math.random() * 3.5 + 1.2,
+            speedX: (Math.random() - 0.5) * 0.7,
+            speedY: -(Math.random() * 0.9 + 0.4),
+            alpha: Math.random() * 0.75 + 0.25,
             color: Math.random() > 0.4 ? '#ff9d00' : (Math.random() > 0.5 ? '#ff2323' : '#ffd700'),
             pulse: Math.random() * Math.PI * 2
         };
     }
 
-    spawnTrailParticle(x, y, isGold = false) {
+    spawnTrailParticle(x, y) {
         if (this.reducedMotion && Math.random() > 0.3) return;
         const angle = Math.random() * Math.PI * 2;
-        const speed = Math.random() * 1.5 + 0.5;
+        const speed = Math.random() * 1.6 + 0.4;
 
         this.particles.push({
-            x: x + (Math.random() - 0.5) * 10,
-            y: y + (Math.random() - 0.5) * 10,
+            x: x + (Math.random() - 0.5) * 12,
+            y: y + (Math.random() - 0.5) * 12,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed - 0.3,
-            size: Math.random() * 4 + 1.5,
-            maxLife: Math.random() * 40 + 20,
+            size: Math.random() * 4.5 + 1.5,
+            maxLife: Math.random() * 35 + 20,
             life: 0,
-            color: isGold ? '#ffd700' : (Math.random() > 0.5 ? '#ff3b3b' : '#ff9d00')
+            color: Math.random() > 0.4 ? '#ffd700' : '#ff3b3b'
         });
     }
 
     spawnFireBreath(headX, headY, headAngle) {
-        const particleCount = this.reducedMotion ? 3 : 8;
+        const particleCount = this.reducedMotion ? 3 : 9;
         for (let i = 0; i < particleCount; i++) {
             const spread = (Math.random() - 0.5) * 0.55;
-            const speed = Math.random() * 5 + 3.5;
+            const speed = Math.random() * 6 + 4.0;
 
             this.particles.push({
-                x: headX + Math.cos(headAngle) * 30,
-                y: headY + Math.sin(headAngle) * 30,
+                x: headX + Math.cos(headAngle) * 35,
+                y: headY + Math.sin(headAngle) * 35,
                 vx: Math.cos(headAngle + spread) * speed,
                 vy: Math.sin(headAngle + spread) * speed,
-                size: Math.random() * 7 + 3,
-                maxLife: Math.random() * 30 + 15,
+                size: Math.random() * 8 + 3.5,
+                maxLife: Math.random() * 32 + 18,
                 life: 0,
-                color: Math.random() > 0.3 ? '#ffd700' : '#ff3b3b',
-                isBreath: true
+                color: Math.random() > 0.25 ? '#ffd700' : '#ff2323'
             });
         }
 
-        // Add small smoke puff
-        if (Math.random() > 0.6) {
+        if (Math.random() > 0.5) {
             this.smokePuffs.push({
-                x: headX + Math.cos(headAngle) * 40,
-                y: headY + Math.sin(headAngle) * 40,
-                radius: Math.random() * 8 + 6,
+                x: headX + Math.cos(headAngle) * 45,
+                y: headY + Math.sin(headAngle) * 45,
+                radius: Math.random() * 10 + 6,
                 maxLife: 45,
                 life: 0,
-                growth: Math.random() * 0.4 + 0.3,
-                alpha: 0.35
+                growth: Math.random() * 0.45 + 0.3,
+                alpha: 0.4
             });
         }
     }
 
     update() {
         const speedFactor = this.reducedMotion ? 0.25 : 1.0;
-        this.time += 0.007 * speedFactor;
+        this.time += 0.0065 * speedFactor;
 
         const CX = this.width / 2;
         const CY = this.height / 2;
-        const RX = Math.min(this.width * 0.38, 550);
-        const RY = Math.min(this.height * 0.34, 260);
+        const RX = Math.min(this.width * 0.38, 560);
+        const RY = Math.min(this.height * 0.34, 270);
 
-        // Smooth flight trajectory looping around hero section
+        // Parametric flight path looping elegantly around hero text
         const t = this.time;
-        const headTargetX = CX + Math.sin(t * 0.8) * RX + Math.cos(t * 1.6) * (RX * 0.3);
-        const headTargetY = CY + Math.sin(t * 1.6) * RY + Math.sin(t * 0.8) * (RY * 0.25);
-        
-        // Z Depth undulation (1 = in front, 0.7 = behind)
-        const currentZ = 0.85 + 0.3 * Math.sin(t * 1.2);
+        const headTargetX = CX + Math.sin(t * 0.85) * RX + Math.cos(t * 1.7) * (RX * 0.28);
+        const headTargetY = CY + Math.sin(t * 1.7) * RY + Math.sin(t * 0.85) * (RY * 0.22);
 
-        // Head positioning
+        // Head positioning & orientation
         const head = this.segments[0];
         const dx = headTargetX - head.x;
         const dy = headTargetY - head.y;
         head.angle = Math.atan2(dy, dx);
-        head.x += dx * (0.12 * speedFactor);
-        head.y += dy * (0.12 * speedFactor);
-        head.z = currentZ;
+        head.x += dx * (0.11 * speedFactor);
+        head.y += dy * (0.11 * speedFactor);
 
-        // Fire breath timer logic
+        // Fire breath timer
         this.breathTimer += 0.016 * speedFactor;
-        if (this.breathTimer > 7 && !this.isBreathing) {
+        if (this.breathTimer > 6.5 && !this.isBreathing) {
             this.isBreathing = true;
             this.breathDuration = 0;
         }
@@ -178,45 +194,43 @@ class ChineseDragonEngine {
         if (this.isBreathing) {
             this.breathDuration += 0.016 * speedFactor;
             this.spawnFireBreath(head.x, head.y, head.angle);
-            if (this.breathDuration > 1.8) {
+            if (this.breathDuration > 2.0) {
                 this.isBreathing = false;
                 this.breathTimer = 0;
             }
         }
 
-        // Kinematic tail chain updating
+        // Kinematic serpent follower updating
         for (let i = 1; i < this.segmentsCount; i++) {
             const prev = this.segments[i - 1];
             const seg = this.segments[i];
 
-            // Serpentine undulation wave along spine
-            const waveAmplitude = (1 - i / this.segmentsCount) * 16;
-            const wave = Math.sin(t * 5.5 - i * 0.22) * waveAmplitude;
+            // Serpentine transverse wave
+            const waveAmplitude = (1 - i / this.segmentsCount) * 17;
+            const wave = Math.sin(t * 5.2 - i * 0.2) * waveAmplitude;
 
             const segDx = prev.x - seg.x;
             const segDy = prev.y - seg.y;
             const segAngle = Math.atan2(segDx, segDy);
             seg.angle = segAngle;
 
-            const spacing = 13.5;
+            const spacing = 12.5;
             const targetX = prev.x - Math.cos(segAngle) * spacing + Math.cos(segAngle + Math.PI / 2) * wave;
             const targetY = prev.y - Math.sin(segAngle) * spacing + Math.sin(segAngle + Math.PI / 2) * wave;
 
-            seg.x += (targetX - seg.x) * (0.4 * speedFactor);
-            seg.y += (targetY - seg.y) * (0.4 * speedFactor);
-            seg.z = prev.z;
+            seg.x += (targetX - seg.x) * (0.42 * speedFactor);
+            seg.y += (targetY - seg.y) * (0.42 * speedFactor);
 
-            // Spawn ember trail particles from random body segments
-            if (i % 6 === 0 && Math.random() > 0.6) {
-                this.spawnTrailParticle(seg.x, seg.y, i < 15);
+            if (i % 7 === 0 && Math.random() > 0.5) {
+                this.spawnTrailParticle(seg.x, seg.y);
             }
         }
 
-        // Update ambient embers
+        // Ambient embers update
         for (let i = 0; i < this.embers.length; i++) {
             const e = this.embers[i];
             e.y += e.speedY * speedFactor;
-            e.x += (e.speedX + Math.sin(t * 2 + e.pulse) * 0.3) * speedFactor;
+            e.x += (e.speedX + Math.sin(t * 2 + e.pulse) * 0.35) * speedFactor;
             e.pulse += 0.03;
 
             if (e.y < -10 || e.x < -10 || e.x > this.width + 10) {
@@ -224,25 +238,25 @@ class ChineseDragonEngine {
             }
         }
 
-        // Update trail particles
+        // Particles update
         for (let i = this.particles.length - 1; i >= 0; i--) {
             const p = this.particles[i];
             p.life++;
             p.x += p.vx * speedFactor;
             p.y += p.vy * speedFactor;
-            p.vy += 0.04 * speedFactor; // slight gravity
+            p.vy += 0.03 * speedFactor;
 
             if (p.life >= p.maxLife) {
                 this.particles.splice(i, 1);
             }
         }
 
-        // Update smoke puffs
+        // Smoke update
         for (let i = this.smokePuffs.length - 1; i >= 0; i--) {
             const s = this.smokePuffs[i];
             s.life++;
             s.radius += s.growth;
-            s.alpha = 0.35 * (1 - s.life / s.maxLife);
+            s.alpha = 0.4 * (1 - s.life / s.maxLife);
 
             if (s.life >= s.maxLife) {
                 this.smokePuffs.splice(i, 1);
@@ -253,34 +267,34 @@ class ChineseDragonEngine {
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
 
-        // Ambient Drifting Embers
+        // Ambient background embers
         this.drawEmbers();
 
         // Smoke Puffs
         this.drawSmoke();
 
-        // Draw Dragon with glowing composite blending
+        // Save canvas state with subtle screen/lighter blending
         this.ctx.save();
-        this.ctx.globalCompositeOperation = 'screen';
+        this.ctx.globalCompositeOperation = 'source-over';
 
-        // Draw segments from tail to head for proper layering
+        // Render dragon from tail to head so overlapping scales layer naturally
         for (let i = this.segmentsCount - 1; i >= 0; i--) {
             const seg = this.segments[i];
 
             if (i === 0) {
-                this.drawDragonHead(seg);
+                this.drawRealisticHead(seg);
             } else {
-                this.drawBodySegment(seg, i);
+                this.drawRealisticBodySegment(seg, i);
             }
 
-            // Draw dragon legs/claws at designated segments
-            if (i === 10 || i === 18 || i === 28 || i === 36) {
-                const side = (i === 10 || i === 28) ? 1 : -1;
-                this.drawDragonClaw(seg, side, i);
+            // Draw realistic dragon claws & glowing orb at key body segments
+            if (i === 12 || i === 22 || i === 36 || i === 48) {
+                const side = (i === 12 || i === 36) ? 1 : -1;
+                this.drawRealisticClaw(seg, side, i);
             }
         }
 
-        // Draw trail & fire breath particles
+        // Draw glowing particles & fire breath
         this.drawParticles();
 
         this.ctx.restore();
@@ -315,170 +329,246 @@ class ChineseDragonEngine {
         this.ctx.restore();
     }
 
-    drawDragonHead(head) {
+    drawRealisticBodySegment(seg, i) {
+        this.ctx.save();
+        this.ctx.translate(seg.x, seg.y);
+        this.ctx.rotate(seg.angle);
+
+        const r = seg.radius;
+        const isTail = i >= this.segmentsCount - 8;
+
+        if (this.texturesLoaded && this.bodyImage.complete) {
+            // Render high-definition sprite texture
+            const aspect = this.bodyImage.width / this.bodyImage.height;
+            const w = r * 2.6;
+            const h = w / aspect;
+            this.ctx.drawImage(this.bodyImage, -w / 2, -h / 2, w, h);
+        } else {
+            // Procedural Realistic Golden Scales & Crimson Spine Mane
+            // 1. Pale Gold Belly Armor (Underside)
+            const bellyGrad = this.ctx.createLinearGradient(0, -r, 0, r);
+            bellyGrad.addColorStop(0, '#ffe899');
+            bellyGrad.addColorStop(0.5, '#d4a017');
+            bellyGrad.addColorStop(1, '#8b6508');
+
+            this.ctx.fillStyle = bellyGrad;
+            this.ctx.beginPath();
+            this.ctx.ellipse(0, r * 0.2, r * 0.95, r * 0.5, 0, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // 2. Metallic Golden Scales Body
+            const goldScaleGrad = this.ctx.createRadialGradient(-r * 0.2, -r * 0.2, 1, 0, 0, r * 1.3);
+            goldScaleGrad.addColorStop(0, '#fff5b8');      // Highlight
+            goldScaleGrad.addColorStop(0.35, '#e6b800');   // Rich Gold
+            goldScaleGrad.addColorStop(0.75, '#b37700');   // Deep Bronze
+            goldScaleGrad.addColorStop(1, '#5c3300');      // Shadow
+
+            this.ctx.fillStyle = goldScaleGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(0, 0, r, 0, Math.PI * 2);
+            this.ctx.fill();
+
+            // Scale pattern lines
+            this.ctx.strokeStyle = 'rgba(100, 50, 0, 0.4)';
+            this.ctx.lineWidth = 1.2;
+            this.ctx.beginPath();
+            this.ctx.arc(-r * 0.2, 0, r * 0.6, -Math.PI * 0.4, Math.PI * 0.4);
+            this.ctx.arc(r * 0.2, 0, r * 0.6, Math.PI * 0.6, Math.PI * 1.4);
+            this.ctx.stroke();
+
+            // 3. Fiery Crimson Spine Mane (Upper Back)
+            if (i % 2 === 0) {
+                const maneLen = Math.max(8, 26 * (1 - i / this.segmentsCount));
+                const maneGrad = this.ctx.createLinearGradient(0, -r, 0, -r - maneLen);
+                maneGrad.addColorStop(0, '#ff1e1e');
+                maneGrad.addColorStop(0.6, '#ff8000');
+                maneGrad.addColorStop(1, 'rgba(255, 215, 0, 0)');
+
+                this.ctx.fillStyle = maneGrad;
+                this.ctx.beginPath();
+                this.ctx.moveTo(-r * 0.4, -r * 0.7);
+                this.ctx.quadraticCurveTo(-r * 0.2, -r - maneLen, 0, -r - maneLen * 1.2);
+                this.ctx.quadraticCurveTo(r * 0.3, -r - maneLen, r * 0.4, -r * 0.7);
+                this.ctx.closePath();
+                this.ctx.fill();
+            }
+
+            // 4. Tail Plume (End of body)
+            if (isTail) {
+                const plumeSize = (this.segmentsCount - i) * 7.5;
+                const plumeGrad = this.ctx.createRadialGradient(0, 0, 2, 0, 0, plumeSize);
+                plumeGrad.addColorStop(0, '#ffd700');
+                plumeGrad.addColorStop(0.5, '#ff2323');
+                plumeGrad.addColorStop(1, 'rgba(255, 100, 0, 0)');
+
+                this.ctx.fillStyle = plumeGrad;
+                this.ctx.beginPath();
+                this.ctx.arc(0, 0, plumeSize, 0, Math.PI * 2);
+                this.ctx.fill();
+            }
+        }
+
+        this.ctx.restore();
+    }
+
+    drawRealisticHead(head) {
         this.ctx.save();
         this.ctx.translate(head.x, head.y);
         this.ctx.rotate(head.angle);
 
         const r = head.radius;
 
-        // Head Snout & Skull Gradient
-        const headGrad = this.ctx.createRadialGradient(5, 0, 2, 0, 0, r * 1.6);
-        headGrad.addColorStop(0, '#ffd700');   // Molten Gold Core
-        headGrad.addColorStop(0.4, '#ff2323'); // Crimson Energy
-        headGrad.addColorStop(1, '#900000');   // Dark Red Outline
+        if (this.texturesLoaded && this.headImage.complete) {
+            // Render high-resolution dragon head sprite
+            const aspect = this.headImage.width / this.headImage.height;
+            const w = r * 3.2;
+            const h = w / aspect;
+            this.ctx.drawImage(this.headImage, -w / 2, -h / 2, w, h);
+        } else {
+            // Procedural Realistic Chinese Dragon Head
+            // 1. Dragon Skull Base & Jaws
+            const headGrad = this.ctx.createRadialGradient(r * 0.4, 0, 2, 0, 0, r * 1.8);
+            headGrad.addColorStop(0, '#fff3a8');     // Gold Core
+            headGrad.addColorStop(0.4, '#d49b00');   // Rich Golden Scale
+            headGrad.addColorStop(0.8, '#a62400');   // Crimson Accent
+            headGrad.addColorStop(1, '#4a0800');     // Shadow
 
-        // Snout shape
-        this.ctx.fillStyle = headGrad;
-        this.ctx.beginPath();
-        this.ctx.moveTo(r * 1.5, 0);
-        this.ctx.quadraticCurveTo(r * 0.8, -r * 0.9, -r * 0.8, -r * 0.7);
-        this.ctx.lineTo(-r * 1.2, r * 0.7);
-        this.ctx.quadraticCurveTo(r * 0.8, r * 0.9, r * 1.5, 0);
-        this.ctx.closePath();
-        this.ctx.fill();
+            this.ctx.fillStyle = headGrad;
 
-        // Antler Horns (Molten Gold & Crimson)
-        this.drawAntlerHorns(r);
-
-        // Dragon Barbels (Mustache Whiskers)
-        this.drawBarbels(r);
-
-        // Glowing Bright Red Eyes
-        const eyeColor = this.isBreathing ? '#ffffff' : '#ff1e1e';
-        const eyeGlowRadius = this.isBreathing ? 14 : 9;
-
-        // Left & Right Eyes
-        [-0.45, 0.45].forEach(side => {
-            const eyeY = side * r * 0.55;
-            const eyeX = r * 0.3;
-
-            // Outer Radial Glow
-            const eyeGrad = this.ctx.createRadialGradient(eyeX, eyeY, 1, eyeX, eyeY, eyeGlowRadius);
-            eyeGrad.addColorStop(0, '#ffffff');
-            eyeGrad.addColorStop(0.3, eyeColor);
-            eyeGrad.addColorStop(1, 'rgba(255, 0, 0, 0)');
-
-            this.ctx.fillStyle = eyeGrad;
+            // Snout Shape
             this.ctx.beginPath();
-            this.ctx.arc(eyeX, eyeY, eyeGlowRadius, 0, Math.PI * 2);
+            this.ctx.moveTo(r * 1.6, 0);
+            this.ctx.quadraticCurveTo(r * 1.1, -r * 0.85, -r * 0.7, -r * 0.8);
+            this.ctx.lineTo(-r * 1.3, r * 0.8);
+            this.ctx.quadraticCurveTo(r * 1.1, r * 0.85, r * 1.6, 0);
+            this.ctx.closePath();
             this.ctx.fill();
 
-            // Inner slit pupil
+            // 2. Open Jaw Teeth & Fangs
             this.ctx.fillStyle = '#ffffff';
-            this.ctx.beginPath();
-            this.ctx.ellipse(eyeX + 1, eyeY, 3, 1.5, 0, 0, Math.PI * 2);
-            this.ctx.fill();
-        });
+            [-0.3, 0, 0.3].forEach(offset => {
+                this.ctx.beginPath();
+                this.ctx.moveTo(r * 1.3, offset * r);
+                this.ctx.lineTo(r * 1.5, offset * r + 2);
+                this.ctx.lineTo(r * 1.3, offset * r + 4);
+                this.ctx.closePath();
+                this.ctx.fill();
+            });
 
-        // Jaw Fire Glow when breathing
-        if (this.isBreathing) {
-            this.ctx.fillStyle = 'rgba(255, 215, 0, 0.6)';
-            this.ctx.beginPath();
-            this.ctx.arc(r * 1.2, 0, 12, 0, Math.PI * 2);
-            this.ctx.fill();
+            // 3. Majestic Golden Antler Horns
+            this.drawRealisticHorns(r);
+
+            // 4. Flowing Dragon Whiskers (Barbels)
+            this.drawRealisticWhiskers(r);
+
+            // 5. Glowing Ruby Red Eyes
+            const eyeColor = this.isBreathing ? '#ffffff' : '#ff1a1a';
+            const eyeGlowRadius = this.isBreathing ? 16 : 10;
+
+            [-0.48, 0.48].forEach(side => {
+                const eyeY = side * r * 0.55;
+                const eyeX = r * 0.35;
+
+                // Eye Radial Glow
+                const eyeGrad = this.ctx.createRadialGradient(eyeX, eyeY, 1, eyeX, eyeY, eyeGlowRadius);
+                eyeGrad.addColorStop(0, '#ffffff');
+                eyeGrad.addColorStop(0.35, eyeColor);
+                eyeGrad.addColorStop(1, 'rgba(255, 0, 0, 0)');
+
+                this.ctx.fillStyle = eyeGrad;
+                this.ctx.beginPath();
+                this.ctx.arc(eyeX, eyeY, eyeGlowRadius, 0, Math.PI * 2);
+                this.ctx.fill();
+
+                // Slit Pupil
+                this.ctx.fillStyle = '#ffffff';
+                this.ctx.beginPath();
+                this.ctx.ellipse(eyeX + 1, eyeY, 3.5, 1.8, 0, 0, Math.PI * 2);
+                this.ctx.fill();
+            });
         }
 
         this.ctx.restore();
     }
 
-    drawAntlerHorns(r) {
-        this.ctx.lineWidth = 3.5;
+    drawRealisticHorns(r) {
+        this.ctx.lineWidth = 4;
         this.ctx.strokeStyle = '#ffd700';
 
         [-1, 1].forEach(side => {
             this.ctx.beginPath();
-            this.ctx.moveTo(-r * 0.5, side * r * 0.5);
-            this.ctx.quadraticCurveTo(-r * 1.5, side * r * 1.3, -r * 2.2, side * r * 1.6);
-            this.ctx.moveTo(-r * 1.2, side * r * 1.0);
-            this.ctx.lineTo(-r * 1.7, side * r * 0.6);
+            this.ctx.moveTo(-r * 0.4, side * r * 0.5);
+            this.ctx.quadraticCurveTo(-r * 1.6, side * r * 1.4, -r * 2.5, side * r * 1.8);
+            this.ctx.moveTo(-r * 1.3, side * r * 1.1);
+            this.ctx.lineTo(-r * 1.9, side * r * 0.7);
             this.ctx.stroke();
         });
     }
 
-    drawBarbels(r) {
-        this.ctx.lineWidth = 2;
-        this.ctx.strokeStyle = 'rgba(255, 215, 0, 0.85)';
-        const wave = Math.sin(this.time * 8) * 8;
+    drawRealisticWhiskers(r) {
+        this.ctx.lineWidth = 2.2;
+        this.ctx.strokeStyle = 'rgba(255, 215, 0, 0.9)';
+        const wave = Math.sin(this.time * 7) * 9;
 
         [-1, 1].forEach(side => {
             this.ctx.beginPath();
-            this.ctx.moveTo(r * 1.1, side * r * 0.4);
-            this.ctx.quadraticCurveTo(r * 2.0, side * r * 1.2 + wave, r * 2.8, side * r * 0.6 - wave);
+            this.ctx.moveTo(r * 1.2, side * r * 0.35);
+            this.ctx.quadraticCurveTo(r * 2.2, side * r * 1.4 + wave, r * 3.2, side * r * 0.7 - wave);
             this.ctx.stroke();
         });
     }
 
-    drawBodySegment(seg, i) {
+    drawRealisticClaw(seg, side, segIndex) {
         this.ctx.save();
         this.ctx.translate(seg.x, seg.y);
         this.ctx.rotate(seg.angle);
 
-        const r = seg.radius;
-        const alpha = Math.min(0.85, 0.45 + (1 - i / this.segmentsCount) * 0.4);
+        const legLength = 28;
+        const wave = Math.sin(this.time * 5.5 + segIndex) * 7;
 
-        // Segment Radial Gradient
-        const segGrad = this.ctx.createRadialGradient(0, 0, 1, 0, 0, r * 1.2);
-        segGrad.addColorStop(0, '#ffd700');                              // Molten Gold Core
-        segGrad.addColorStop(0.45, `rgba(255, 30, 30, ${alpha})`);       // Crimson Glow
-        segGrad.addColorStop(1, `rgba(255, 100, 0, 0.05)`);              // Translucent Edge
+        // Muscular Leg Stem (Gold & Bronze)
+        const legGrad = this.ctx.createLinearGradient(0, 0, 20, side * legLength);
+        legGrad.addColorStop(0, '#ffd700');
+        legGrad.addColorStop(1, '#8b5a00');
 
-        this.ctx.fillStyle = segGrad;
+        this.ctx.strokeStyle = legGrad;
+        this.ctx.lineWidth = 5;
         this.ctx.beginPath();
-        this.ctx.arc(0, 0, r, 0, Math.PI * 2);
-        this.ctx.fill();
-
-        // Fiery Spine Mane / Fins along body
-        if (i % 2 === 0 && i < 42) {
-            const finLen = Math.max(4, 16 * (1 - i / this.segmentsCount));
-            this.ctx.fillStyle = '#ff9d00';
-            this.ctx.beginPath();
-            this.ctx.moveTo(-r * 0.3, -r);
-            this.ctx.lineTo(0, -r - finLen);
-            this.ctx.lineTo(r * 0.3, -r);
-            this.ctx.closePath();
-            this.ctx.fill();
-        }
-
-        // Tail Plume at the very end
-        if (i >= this.segmentsCount - 5) {
-            const plumeSize = (this.segmentsCount - i) * 6;
-            const plumeGrad = this.ctx.createRadialGradient(0, 0, 2, 0, 0, plumeSize);
-            plumeGrad.addColorStop(0, '#ffd700');
-            plumeGrad.addColorStop(0.5, '#ff2323');
-            plumeGrad.addColorStop(1, 'rgba(255, 100, 0, 0)');
-
-            this.ctx.fillStyle = plumeGrad;
-            this.ctx.beginPath();
-            this.ctx.arc(0, 0, plumeSize, 0, Math.PI * 2);
-            this.ctx.fill();
-        }
-
-        this.ctx.restore();
-    }
-
-    drawDragonClaw(seg, side, segIndex) {
-        this.ctx.save();
-        this.ctx.translate(seg.x, seg.y);
-        this.ctx.rotate(seg.angle);
-
-        const legLength = 24;
-        const wave = Math.sin(this.time * 6 + segIndex) * 6;
-
-        this.ctx.strokeStyle = '#ff3b3b';
-        this.ctx.lineWidth = 3.5;
-        this.ctx.beginPath();
-        this.ctx.moveTo(0, side * seg.radius * 0.8);
-        this.ctx.quadraticCurveTo(10, side * (seg.radius + legLength * 0.5) + wave, 18, side * (seg.radius + legLength) + wave);
+        this.ctx.moveTo(0, side * seg.radius * 0.7);
+        this.ctx.quadraticCurveTo(12, side * (seg.radius + legLength * 0.6) + wave, 22, side * (seg.radius + legLength) + wave);
         this.ctx.stroke();
 
-        // 3 Golden Claws
-        this.ctx.fillStyle = '#ffd700';
-        [-4, 0, 4].forEach(offset => {
+        // 4 Sharp Curved Golden Talons (Claws)
+        const clawX = 22;
+        const clawY = side * (seg.radius + legLength) + wave;
+
+        this.ctx.fillStyle = '#fff5b8';
+        this.ctx.strokeStyle = '#d49b00';
+        this.ctx.lineWidth = 1.5;
+
+        [-8, -3, 3, 8].forEach(angleOffset => {
             this.ctx.beginPath();
-            this.ctx.arc(18 + offset, side * (seg.radius + legLength) + wave + offset * 0.5, 2.5, 0, Math.PI * 2);
+            this.ctx.moveTo(clawX, clawY);
+            this.ctx.lineTo(clawX + 9, clawY + angleOffset);
+            this.ctx.lineTo(clawX + 4, clawY + angleOffset * 0.5);
+            this.ctx.closePath();
             this.ctx.fill();
+            this.ctx.stroke();
         });
+
+        // Mystic Dragon Orb / Pearl (Clutched by claw on segment 36)
+        if (segIndex === 36) {
+            const orbGrad = this.ctx.createRadialGradient(clawX + 10, clawY, 1, clawX + 10, clawY, 14);
+            orbGrad.addColorStop(0, '#ffffff');
+            orbGrad.addColorStop(0.3, '#ff00ff');   // Mystic Magenta/Purple
+            orbGrad.addColorStop(0.7, '#8800cc');   // Deep Violet
+            orbGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+            this.ctx.fillStyle = orbGrad;
+            this.ctx.beginPath();
+            this.ctx.arc(clawX + 10, clawY, 14, 0, Math.PI * 2);
+            this.ctx.fill();
+        }
 
         this.ctx.restore();
     }
@@ -504,5 +594,5 @@ class ChineseDragonEngine {
 
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new ChineseDragonEngine('chinese-dragon-canvas');
+    new RealisticChineseDragonEngine('chinese-dragon-canvas');
 });
