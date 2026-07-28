@@ -273,8 +273,11 @@ nav ul li a:hover::after {
     height: 100vh;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.95;
+    opacity: 0.98;
     mix-blend-mode: screen;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    filter: contrast(1.12) brightness(1.08);
 }
 
 /* Red fire smoke/glow overlays */
