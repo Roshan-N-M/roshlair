@@ -3,6 +3,14 @@
 [build]
   # Specify the directory containing index.html and static assets
   publish = "roshh"
+  # Netlify serverless functions directory
+  functions = "netlify/functions"
+
+# Proxy /api/* requests to Netlify functions
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/contact"
+  status = 200
 
 # Handle fallback redirects for clean routing
 [[redirects]]

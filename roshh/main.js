@@ -297,40 +297,108 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('input', updateAmpLED);
     });
 
-    // 3. Fire-Breathing Form Submit
+    // 3. Fire-Breathing Form Submit → Backend API
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Fire epic rock chords on submission
-            if (window.guitar) {
-                // Play E5 power chord in progression (E2, B2, E3)
-                window.guitar.playNote(82.41, 2.5, 0.6); // E2
-                setTimeout(() => window.guitar.playNote(123.47, 2.2, 0.5), 80); // B2
-                setTimeout(() => window.guitar.playNote(164.81, 2.0, 0.4), 160); // E3
-            }
-
-            // Fire ember explosion on the submit button!
             const submitBtn = contactForm.querySelector('.btn-primary');
-            createEmbers(submitBtn, 45);
-
-            // Toast/Alert success display
             const submitLabel = submitBtn.querySelector('span');
             const originalText = submitLabel.textContent;
-            
-            submitBtn.style.pointerEvents = 'none';
-            submitLabel.textContent = "SOLO FIRED! (SENT)";
-            submitBtn.style.background = "linear-gradient(135deg, #4caf50 0%, #2e7d32 100%)";
-            submitBtn.style.boxShadow = "0 8px 25px rgba(76, 175, 80, 0.6)";
 
-            setTimeout(() => {
-                contactForm.reset();
-                updateAmpLED();
-                submitLabel.textContent = originalText;
-                submitBtn.style.pointerEvents = '';
-                submitBtn.style.background = '';
-                submitBtn.style.boxShadow = '';
-            }, 4000);
+            // Collect form data
+            const payload = {
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            };
+
+            // ── Loading State ────────────────────────────────────────────────
+            submitBtn.style.pointerEvents = 'none';
+            submitLabel.textContent = 'TRANSMITTING SIGNAL...';
+            submitBtn.style.background = 'linear-gradient(135deg, #ff9d00 0%, #cc7a00 100%)';
+            submitBtn.style.boxShadow = '0 8px 25px rgba(255, 157, 0, 0.5)';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // ── SUCCESS ──────────────────────────────────────────────
+
+                    // Fire epic E5 power chord
+                    if (window.guitar) {
+                        window.guitar.playNote(82.41, 2.5, 0.6);   // E2
+                        setTimeout(() => window.guitar.playNote(123.47, 2.2, 0.5), 80);  // B2
+                        setTimeout(() => window.guitar.playNote(164.81, 2.0, 0.4), 160); // E3
+                    }
+
+                    // Fire ember explosion
+                    createEmbers(submitBtn, 45);
+
+                    submitLabel.textContent = 'SOLO FIRED! (SENT)';
+                    submitBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #2e7d32 100%)';
+                    submitBtn.style.boxShadow = '0 8px 25px rgba(76, 175, 80, 0.6)';
+
+                    setTimeout(() => {
+                        contactForm.reset();
+                        updateAmpLED();
+                        submitLabel.textContent = originalText;
+                        submitBtn.style.pointerEvents = '';
+                        submitBtn.style.background = '';
+                        submitBtn.style.boxShadow = '';
+                    }, 4000);
+
+                } else {
+                    // ── API VALIDATION ERROR ─────────────────────────────────
+                    const errorMessages = (data.errors || ['Submission failed. Please check your inputs.']).join('\n');
+
+                    // Low distortion error tone
+                    if (window.guitar) {
+                        window.guitar.playNote(55, 1.0, 0.5); // Deep low A - error tone
+                    }
+
+                    submitLabel.textContent = 'SIGNAL FAILED - CHECK INPUTS';
+                    submitBtn.style.background = 'linear-gradient(135deg, #c62828 0%, #7f0000 100%)';
+                    submitBtn.style.boxShadow = '0 8px 25px rgba(198, 40, 40, 0.6)';
+
+                    alert(`⚡ Roshh Lair:\n\n${errorMessages}`);
+
+                    setTimeout(() => {
+                        submitLabel.textContent = originalText;
+                        submitBtn.style.pointerEvents = '';
+                        submitBtn.style.background = '';
+                        submitBtn.style.boxShadow = '';
+                    }, 3000);
+                }
+
+            } catch (networkErr) {
+                // ── NETWORK ERROR ────────────────────────────────────────────
+                console.error('[Roshh Contact] Network error:', networkErr);
+
+                if (window.guitar) {
+                    window.guitar.playNote(55, 1.0, 0.5);
+                }
+
+                submitLabel.textContent = 'SIGNAL LOST - NO CONNECTION';
+                submitBtn.style.background = 'linear-gradient(135deg, #c62828 0%, #7f0000 100%)';
+                submitBtn.style.boxShadow = '0 8px 25px rgba(198, 40, 40, 0.6)';
+
+                alert('⚡ Roshh Lair:\n\nCould not reach the server. Please check your connection and try again.');
+
+                setTimeout(() => {
+                    submitLabel.textContent = originalText;
+                    submitBtn.style.pointerEvents = '';
+                    submitBtn.style.background = '';
+                    submitBtn.style.boxShadow = '';
+                }, 3000);
+            }
         });
     }
 });
